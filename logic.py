@@ -1,4 +1,5 @@
 from expenseData import listofExpense
+import ast
 import datetime
 def getexpense():
     choice='y'
@@ -40,8 +41,16 @@ def insertExpense():
     key=dayToday.split('-')
     savedData=pushData(key,dummydata)
     return savedData
-def fetchData():
+def fetchData(userDate):
     fopen = open('expense.txt', 'r')
     data=fopen.read()
+    d=ast.literal_eval(data)
     fopen.close()
-    return data
+    date = userDate.split('-')
+    exp = d[date[2]][date[1]][date[0]]
+    counter = 1
+    totalexpense = 0
+    for i in range(int(len(exp) / 2)):
+        totalexpense = totalexpense + int(exp[i + counter])
+        counter += 1
+    return totalexpense

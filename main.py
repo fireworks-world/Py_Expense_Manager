@@ -10,7 +10,8 @@ while flag:
         print("Data Saved Successfully")
         print(totalExpense)
     elif(useroption=='v' or useroption=='V'):
-        data=fetchData()
+        userinput = input("Enter a date in dd-mm-yyyy: ")
+        data=fetchData(userinput)
         print(data)
     else:
         print("Invalid Option!!! Plz Try Again")
