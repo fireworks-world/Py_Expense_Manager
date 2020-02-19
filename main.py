@@ -1,11 +1,12 @@
 #create a expense manager for user
-from logic import insertExpense,fetchData
+from logic import insertExpense,fetchData,pushData
 print("-------Expense Manager-------")
 flag=True
 while flag:
     print("Press 'A' to add Expense\nPress 'V' to show expense")
     useroption=input(">>>Enter Your Option:")
     if (useroption=='a' or useroption=='A'):
+
         totalExpense=insertExpense()
         print("Data Saved Successfully")
         print(totalExpense)

@@ -1,6 +1,15 @@
 from expenseData import listofExpense
 import ast
 import datetime
+
+
+def readdata():
+    fopen = open('expense.txt', 'r')
+    data = fopen.read()
+    d = ast.literal_eval(data)
+    fopen.close()
+    return d
+
 def getexpense():
     choice='y'
     totalexpense=[]
@@ -16,20 +25,30 @@ def getexpense():
 
 
 def saveData(listofExpense):
-    fopen=open('expense.txt','a')
+    fopen=open('expense.txt','w')
     fopen.write(str(listofExpense))
     fopen.close()
 
 
 def pushData(id,value):
-    data={id[0]: {
-        id[1]:{
-            id[2]: value
-            }
-        }
-    }
-    listofExpense.update(data)
-    saveData(listofExpense)
+    #id=['2020', '02', '19']
+    #value=['Grocery', '200','others', '800']
+    d=readdata()
+    if id[0] in d:
+        if id[1] in d[id[0]]:
+            exp={id[2]:value}
+            d[id[0]][id[1]].update(exp)
+
+
+
+    # data={id[0]: {
+    #     id[1]:{
+    #         id[2]: value
+    #         }
+    #     }
+    # }
+    # listofExpense.update(data)
+    saveData(d)
     return listofExpense
 
 
@@ -41,11 +60,9 @@ def insertExpense():
     key=dayToday.split('-')
     savedData=pushData(key,dummydata)
     return savedData
+
 def fetchData(userDate):
-    fopen = open('expense.txt', 'r')
-    data=fopen.read()
-    d=ast.literal_eval(data)
-    fopen.close()
+    d=readdata()
     date = userDate.split('-')
     exp = d[date[2]][date[1]][date[0]]
     counter = 1
